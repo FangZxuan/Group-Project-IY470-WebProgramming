@@ -16,7 +16,7 @@ def index():
 
 @app.route('/confirm')
 def confirm():
-    return render_template('confirm.html')
+    return render_template('confirmation.html')
 
 @app.route('/api/prices')
 def get_prices():

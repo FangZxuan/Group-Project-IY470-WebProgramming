@@ -306,6 +306,77 @@ function resetAll() {
   calculate();
 }
 
+// for invoice 
+function getSelectedGymAccessLabel() {
+  const labels = {
+    none: "No Gym Access",
+    super: "Super Off-Peak",
+    off: "Off-Peak",
+    any: "Anytime"
+  };
+  return labels[gymType] || "No Gym Access";
+}
+
+function getSelectedInvoiceItems() {
+  const breakdownId = selectedGym === "uGym" ? "uBreakdown" : "pBreakdown";
+  const list = document.getElementById(breakdownId);
+  const items = [];
+
+  if (!list) return items;
+
+  const rows = list.querySelectorAll("li");
+
+  for (let i = 0; i < rows.length; i++) {
+    const nameEl = rows[i].querySelector(".item-name");
+    const priceEl = rows[i].querySelector(".item-price");
+
+    const name = nameEl ? nameEl.textContent.trim() : "";
+    const rawPrice = priceEl ? priceEl.textContent.trim() : "£0";
+
+    let numericPrice = 0;
+    let displayPrice = rawPrice;
+
+    if (rawPrice.toLowerCase() === "free") {
+      numericPrice = 0;
+      displayPrice = "Free";
+    } else {
+      numericPrice = parseFloat(rawPrice.replace("£", "")) || 0;
+      displayPrice = "£" + numericPrice.toFixed(2);
+    }
+
+    items.push({
+      name: name,
+      price: numericPrice,
+      displayPrice: displayPrice
+    });
+  }
+
+  return items;
+}
+
+function saveInvoiceData() {
+  if (!selectedGym) return;
+
+  const monthlyPrice = selectedGym === "uGym"
+    ? parseFloat(uPrice.textContent)
+    : parseFloat(pPrice.textContent);
+
+  const joiningFee = joiningFees[selectedGym] || 0;
+
+  const invoiceData = {
+    selectedGym: selectedGym,
+    selectedGymLabel: selectedGym === "uGym" ? "uGym Membership" : "Power Zone Membership",
+    gymAccess: getSelectedGymAccessLabel(),
+    extras: extras,
+    items: getSelectedInvoiceItems(),
+    monthlyPrice: monthlyPrice,
+    joiningFee: joiningFee,
+    totalDueToday: monthlyPrice + joiningFee
+  };
+
+  localStorage.setItem("invoiceData", JSON.stringify(invoiceData));
+}
+
 // Continue button
 function continueToConfirm() {
   let price;
@@ -324,9 +395,13 @@ function continueToConfirm() {
   localStorage.setItem('monthlyPrice', price);
   localStorage.setItem('joiningFee', joiningFees[selectedGym]);
   
+    // Save new invoice data
+  saveInvoiceData();
+
   // Go to confirmation page
   window.location.href = '/confirm';
 }
 
 // Run first calculation after DOM loads
 document.addEventListener('DOMContentLoaded', calculate);
+
