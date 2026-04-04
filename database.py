@@ -21,20 +21,16 @@ def index():
 def membership():
     return render_template('membership.html')
 
-@app.route('/signup')
-def signup():
-    return render_template('signup.html')
-
 @app.route('/confirm')
 def confirm():
     return render_template('confirmation.html')
 
 # Serve the signup page
-@app.route("/account.html")
+@app.route("/account")
 def account_page():
     return render_template("account.html")
  #  this file is in "templates" folder
-@app.route("/signup.html")
+@app.route("/signup")
 def signup_page():
     return render_template("signup.html") 
 
@@ -51,10 +47,23 @@ def email_exists(email):
         cur.close()
         conn.close()
 # Handle form submission
+def membership_exist(membership):
+    conn = get_connection()
+    try: 
+        cur = conn.cursor()
+        cur.execute(
+            "SELECT 1 FROM Account WHERE MembershipID = %s LIMIT 1",(membership,)
+            )
+        return cur.fetchone() is not None
+    finally:
+        cur.close()
+        conn.close()
+
 @app.route("/submit", methods=["POST"])
 
 def submit():
     membership = request.form.get("membership","").strip()
+    membership = int(membership)
     email = request.form.get("email","").strip()
     fname = request.form.get("fname","").strip()
     Lname = request.form.get("Lname","").strip()
@@ -70,7 +79,15 @@ def submit():
             message="Email already registered!",
             redirect_url= url_for("signup_page")
         )
-
+    if not membership_exist(membership):
+        return render_template_string(
+            """
+          <script>
+          alert("Membership Doesn't Exist, Please create one before proceeding!");
+         window.location.href = "{{ url_for('membership') }}";
+         </script>
+          """)
+        
     conn = get_connection()
     try:
         cur = conn.cursor()
@@ -83,11 +100,11 @@ def submit():
         cur.close()
         conn.close()
     return render_template_string("""
-<script>
-    alert("Account Created Successfully!");
-    window.location.href = "{{ url_for('account_page') }}";
-</script>
-""")
+       <script>
+       alert("Account Created Successfully!");
+       window.location.href = "{{ url_for('account_page') }}";
+       </script>
+       """)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=True)
