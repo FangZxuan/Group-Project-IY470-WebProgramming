@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, url_for
+from flask import Flask, request, render_template, url_for, redirect, render_template_string
 import mysql.connector
 
 app = Flask(__name__)
@@ -10,6 +10,7 @@ DB_CONFIG = {
     "database": "papi",
     "raise_on_warnings": True,
 }
+
 
 def get_connection():
     return mysql.connector.connect(**DB_CONFIG)
@@ -39,11 +40,14 @@ def email_exists(email):
 @app.route("/submit", methods=["POST"])
 
 def submit():
+    membership = request.form.get("membership","").strip()
     email = request.form.get("email","").strip()
     fname = request.form.get("fname","").strip()
     Lname = request.form.get("Lname","").strip()
+    pass_word = request.form.get("pass_word","").strip()
 
-    if not email or not fname or not Lname:
+
+    if not email or not fname or not Lname or not membership or not pass_word:
         return "Missing required fields", 400
     
     if email_exists(email):
@@ -57,15 +61,19 @@ def submit():
     try:
         cur = conn.cursor()
         cur.execute(
-            "INSERT INTO Account (email, fname, Lname) VALUES (%s, %s, %s)",
-            (email, fname, Lname),
+            "INSERT INTO Account (EMAIL, First_Name, Last_Name, MembershipID, Password) VALUES (%s, %s, %s, %s, %s)",
+            (email, fname, Lname, membership, pass_word),
         )
         conn.commit()
     finally:
         cur.close()
         conn.close()
-
-    return "Saved to database."
+    return render_template_string("""
+<script>
+    alert("Account Created Successfully!");
+    window.location.href = "{{ url_for('account_page') }}";
+</script>
+""")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5001, debug=True)

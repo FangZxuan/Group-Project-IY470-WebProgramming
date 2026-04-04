@@ -160,35 +160,36 @@ th {
     background-color: #f0f0f0;
 }
 
-/* =========================
-   PAGE BACKGROUND
-   ========================= */
-.account_background{
-     background-image:
-linear-gradient(152deg,rgba(52, 175, 252, 1) 20%, rgba(21, 23, 19, 1) 51%, rgba(52, 107, 245, 1) 75%, rgba(52, 219, 252, 1) 98%);
 
-min-height:100vh;
-}
 
 /* =========================
    LOGIN FORM
    ========================= */
 
+.login_background{
+    background-image: url("../Photos/backgroundgym.jpg");
+    background-size:cover;
+    background-repeat:no-repeat;
+    overflow : hidden; /* Hide  scrollbar */
+    min-height:100vh;
+    
+    
+}
+
+
 /* Login form container */
 .login_form{
+    box-sizing:border-box;
     display:grid;                 /* grid layout */
-    padding:40px;
-    border:3px solid black;
-    width: 45%;
+    width: 35%;
+    min-height: 600px; /* optional minimum */
     margin:100px auto;            /* center form */
     font-size:20px;
-    background-image:linear-gradient(
-        to right,
-        aqua,
-        rgb(50, 50, 161)
-    );
     border-radius:30px;
     position:relative;
+    background-color:#f0f0f0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    gap:25px;
     
 }
 
@@ -205,18 +206,7 @@ form img{
 
 
 /* Login button */
-button{
-    width:100px;
-    border:none;
-    border-radius:10px;
-    background-image:linear-gradient(
-        to right,
-        rgb(96, 96, 248),
-        aqua
-    );
-    font-size:20px;
-    margin-left:5px;
-}
+
 
 /* Create account section */
 .create_account{
@@ -251,8 +241,8 @@ button{
     background-size: 107% 105%;
     background-repeat:no-repeat;
     width: 100vw;
-    overflow-y: hidden; /* Hide vertical scrollbar */
-    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow:hidden; /* Hide scrollbar */
+    
     min-height:100vh;
 }
 .signup_container{
