@@ -160,35 +160,36 @@ th {
     background-color: #f0f0f0;
 }
 
-/* =========================
-   PAGE BACKGROUND
-   ========================= */
-.account_background{
-     background-image:
-linear-gradient(152deg,rgba(52, 175, 252, 1) 20%, rgba(21, 23, 19, 1) 51%, rgba(52, 107, 245, 1) 75%, rgba(52, 219, 252, 1) 98%);
 
-min-height:100vh;
-}
 
 /* =========================
    LOGIN FORM
    ========================= */
 
+.login_background{
+    background-image: url("../Photos/backgroundgym.jpg");
+    background-size:cover;
+    background-repeat:no-repeat;
+    overflow : hidden; /* Hide  scrollbar */
+    min-height:100vh;
+    
+    
+}
+
+
 /* Login form container */
 .login_form{
+    box-sizing:border-box;
     display:grid;                 /* grid layout */
-    padding:40px;
-    border:3px solid black;
-    width: 45%;
+    width: 35%;
+    min-height: 600px; /* optional minimum */
     margin:100px auto;            /* center form */
     font-size:20px;
-    background-image:linear-gradient(
-        to right,
-        aqua,
-        rgb(50, 50, 161)
-    );
     border-radius:30px;
     position:relative;
+    background-color:#f0f0f0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    gap:25px;
     
 }
 
@@ -201,38 +202,11 @@ form img{
    
 }
 
-/* Text inputs & dropdowns */
 
-input[type="password"],
-select {
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-.membership{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
 
 
 /* Login button */
-button{
-    width:100px;
-    border:none;
-    border-radius:10px;
-    background-image:linear-gradient(
-        to right,
-        rgb(96, 96, 248),
-        aqua
-    );
-    font-size:20px;
-    margin-left:5px;
-}
+
 
 /* Create account section */
 .create_account{
@@ -263,29 +237,28 @@ button{
 
 /********SIGN UP PAGE CSS********/
 .background-signup{
-    background-image: url("/static/Photos/gym.jpg");
-     background-size: 106% 100%;
-     background-repeat:no-repeat;
+    background-image: url("../Photos/gym.jpg");
+    background-size: 107% 105%;
+    background-repeat:no-repeat;
     width: 100vw;
-     overflow-y: hidden; /* Hide vertical scrollbar */
-     overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow:hidden; /* Hide scrollbar */
+    
     min-height:100vh;
 }
 .signup_container{
     display:grid;                 /* grid layout */
-    min-height:500px;
+    min-height:400px;
     min-width:500px;;
     border:2px solid #ffffff33;
-    backdrop-filter:blur(13px);
+    backdrop-filter:blur(30px);     /*filtering the background behind the grid to make the container visible*/
     box-shadow : 0 0 10px #0000001a;
-    width: 10%;
-    margin:130px auto;            /* center form */
-    font-size:30px;
+    width: 10%;       
+    margin:100px auto;            /* center form and the location */
     background-color:white;
     border-radius:30px;
     position:relative;
     overflow:hidden;
-    background:transparent;
+    background:transparent;   /*filtering the background behind the grid to make the container visible*/
     padding:20px;
     
 
@@ -293,7 +266,7 @@ button{
 }
 input[type="email"],
 select {
-    width:95%;
+    width:94%;
     padding:15px;
     border-radius:10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -303,34 +276,24 @@ select {
      border:2px solid #ffffff33;
    
 }
-input[type="date"],
-select {
-    width:95%;
-    padding:10px;
-    border-radius:10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    background:transparent;
-    margin-bottom:30px;
-    line-height:20px;
-     border:2px solid #ffffff33;
-   
-}
+
 input[type="submit"],select{
     
-    border:none;
-    border-radius:20px;
-    font-size:20px;
-    height:50px;
-    width: 60%;       /* fixed width */
+  border:none;
+  border-radius:20px;
+  font-size:20px;
+  height:40px;
+  width: 40%;       /* fixed width */
   display: block;     /* ensure it’s block-level */
   margin-left: auto;  /* push from left */
   margin-right: auto; /* push from right */
+  background: linear-gradient(rgba(255, 255, 255, 0.55), rgba(239, 230, 102, 0.204));
     
    
 }
 .signn{
     font-size:30px;
     margin-bottom:30px;
-    text-align: center;
+    text-align:center;
     margin-top:20px;
 }

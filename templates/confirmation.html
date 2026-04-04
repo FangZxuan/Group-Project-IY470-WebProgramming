@@ -146,7 +146,6 @@
     <button type="button" class="pay-btn" id="closeModalBtn">Go to Austin's page</button>
   </div>
 </section>
-
     <script>
       // Wait until the page is fully loaded before running any JavaScript
       document.addEventListener("DOMContentLoaded", () => {
@@ -264,7 +263,10 @@
           <div>Welcome to your new membership and do not forget the moto "better health,better mind, better quality of life"</div>`;
 
         confirmModal.classList.remove("hidden");
-         }
+         
+      }
+
+         
   // making sure that the user put in the card details 
         function validatePaymentForm() {
         const cardNumberFilled = cardNumberInput.value.trim() !== "";
