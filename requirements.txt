@@ -1,1 +1,48 @@
 Flask==3.0.0
+mysql-connector-python==8.3.0
+python-dotenv==1.0.0
+
+#SQL Schema
+#Users/Accounts table
+
+CREATE TABLE Account (
+    MembershipID VARCHAR(6) PRIMARY KEY,
+    EMAIL VARCHAR(255) UNIQUE NOT NULL,
+    First_Name VARCHAR(50) NOT NULL,
+    Last_Name VARCHAR(50) NOT NULL,
+    Password_Hash VARCHAR(255) NOT NULL,
+    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+#Membership purchases table
+
+CREATE TABLE Memberships (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    MembershipID VARCHAR(6) NOT NULL,
+    gym_name VARCHAR(100) NOT NULL,
+    membership_plan VARCHAR(50) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    ticket_type VARCHAR(20) NOT NULL,
+    total_price DECIMAL(10,2) NOT NULL,
+    payment_status VARCHAR(20) DEFAULT 'completed',
+    purchase_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (MembershipID) REFERENCES Account(MembershipID)
+);
+
+## Check all accounts
+
+SELECT MembershipID, EMAIL, First_Name, Last_Name, Password_Hash, created_at 
+FROM Account;
+
+## Check memberships with user details
+
+SELECT m.*, a.First_Name, a.Last_Name, a.EMAIL
+FROM Memberships m
+JOIN Account a ON m.MembershipID = a.MembershipID;
+
+## Reset data (for testing only!)
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE Memberships;
+TRUNCATE TABLE Account;
+SET FOREIGN_KEY_CHECKS = 1;

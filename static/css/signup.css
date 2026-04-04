@@ -1,0 +1,141 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url("/static/Photos/gym.jpg");
+    background-size: 106% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.signup_container {
+    display: grid;
+    min-height: 500px;
+    min-width: 500px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(13px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 10%;
+    margin: 130px auto;
+    font-size: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    padding: 40px;
+}
+
+.signn {
+    font-size: 30px;
+    margin-bottom: 25px;
+    text-align: center;
+    margin-top: 10px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.email_input, .Fname_input, .Lname_input, .password {
+    position: relative;
+    width: 95%;
+    margin-bottom: 15px;
+}
+
+label {
+    position: absolute;
+    left: 12px;
+    top: 15px;
+    color: #000000;
+    pointer-events: none;
+    transition: 0.3s;
+    background-color: transparent;
+    padding: 0 4px;
+    font-size: 16px;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+    top: -10px;
+    font-size: 14px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0 8px;
+    border-radius: 4px;
+}
+
+input[type="text"], 
+input[type="email"], 
+input[type="password"] {
+    width: 95%;
+    padding: 15px 12px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+input::placeholder {
+    color: transparent;
+}
+
+.show-pass {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.show-pass input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.register_button input {
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    height: 50px;
+    width: 60%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(to right, rgb(96, 96, 248), aqua);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.register_button input:hover {
+    transform: scale(1.05);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 16px;
+    color: white;
+}
+
+.login-link a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}

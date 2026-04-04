@@ -2,207 +2,60 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1,0">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
 <title>Sign Up</title>
 </head>
-<style>
-.membership,
-.email_input,
-.Fname_input,
-.Lname_input,
-.password {
-  position: relative;  /* <-- This fixes the label position */
-  width: 95%;  
-       /* match input width */
-}
-  label {
-  position: absolute;
-  left: 12px;
-  top: 14px;
-  color: #000000;
-  pointer-events: none;
-  transition: 0.3s;
-  background-color: transparent; /* optional: can use white to cover text behind */
-  padding: 0 4px;
-  font-size: 14px;
-  
-}
-
-
-/* when input is focused or has text, float the label */
-input:focus + label,
-input:not(:placeholder-shown) + label {
-  top: -15px;      /* move label above input */
-  font-size: 14px; /* shrink */
-  color:black;/* change color */
-}
-    input[type="text"],select{
-    width:95%;
-    padding:14px 12px;
-    border-radius:10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    line-height:20px;
-    margin-bottom:30px;
-    margin-right:20px;
-    background:transparent;
-    border:2px solid #ffffff33;
-    }
-    
- input[type="password"],select{
-    width:95%;
-    padding:14px 12px;
-    border-radius:10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    line-height:20px;
-    margin-right:20px;
-    margin-bottom:30px;
-    background:transparent;
-     border:2px solid #ffffff33;
-    }
-   input[type="checkbox"],select{
-    margin-bottom:30px;
-    margin-top:-5px;
-    
-   }
-    
- .model {
-  display: none; /* hidden by default */
-  position: fixed; 
-  z-index: 1000; /* on top of everything */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.5); /* semi-transparent background */
-}
-.model-content {
-  background-color: #ffffff;
-  margin: 15% auto; /* center vertically & horizontally */
-  padding: 20px;
-  border-radius: 10px;
-  width: 400px;
-  height:200px;
-  text-align: center;
-}
-.model-Body{
-  display: flex;
-  flex-direction: column;
-  gap: 20px; /* spacing between each line */
-}
-.close {
-  float: right;
-  font-size: 24px;
-  cursor: pointer;
-}
-</style>
 <body>
 
-<div class="background-signup">
-   
-   <div class="signup_container">
-    <form action="/submit" method="post" class="signup_form">
-        <header class="signn">Sign up</header>
-    <div class="email_input">
-        <input type="email" id="email" name="email" placeholder=" " required>
-        <label for="email">Email</label>
-    </div>
+<div class="signup_container">
+    <form action="{{ url_for('signup') }}" method="post" class="signup_form">
+        <header class="signn">Sign Up</header>
 
-    <div class="Fname_input">
-        <input type="text" id="fname" name="fname" placeholder=" " required>
-        <label for="fname">First Name</label>    
-    </div>
+        <div class="email_input">
+            <input type="email" id="email" name="email" placeholder=" " required>
+            <label for="email">Email</label>
+        </div>
 
-    <div class="Lname_input">
-       
-        <input type="text" id="Lname"  name="Lname" placeholder=" " required>
-        <label for="Lname">Last Name</label>
- 
-    </div>
-    
-    <div class="password">
-        <input type="password" id="pass_word" name = "pass_word" placeholder=" " pattern=".{8,10}" required>
-        <label for="pass_word">Password (8-10 characters)</label>
+        <div class="Fname_input">
+            <input type="text" id="fname" name="fname" placeholder=" " required>
+            <label for="fname">First Name</label>    
+        </div>
 
-    </div>
-    
-    <div class="show-pass">
-     <input type="checkbox" onclick="show_password()">check your password
-     </div>
-    <div class="register_button">
-        <input type="submit" id="register" value="Sign Up">
-    </div>
-    <div id="confirmModel" class="model" style="display:none;">
-      <div class="model-content">
-      <span id="closeModel" class="close">&times;</span>
-      <div id="modelBody" class="model-Body">
-      </div>
-  </div>
-</div>
-
-
+        <div class="Lname_input">
+            <input type="text" id="Lname" name="Lname" placeholder=" " required>
+            <label for="Lname">Last Name</label>
+        </div>
+        
+        <div class="password">
+            <input type="password" id="pass_word" name="pass_word" placeholder=" " minlength="8" required>
+            <label for="pass_word">Password (min 8 characters)</label>
+        </div>
+        
+        <div class="show-pass">
+            <input type="checkbox" onclick="show_password()"> Show password
+        </div>
+        
+        <div class="register_button">
+            <input type="submit" id="register" value="Create Account">
+        </div>
+        
+        <div class="login-link">
+            Already have an account? <a href="{{ url_for('account_page') }}">Login here</a>
+        </div>
     </form>
-
-    </div>
-
-
-
-
-
-
-
-
-
-
 </div>
-
 
 <script>
     function show_password(){
-    var x = document.getElementById("pass_word");
-    if (x.type === "password"){
-        x.type = "text";
+        var x = document.getElementById("pass_word");
+        if (x.type === "password"){
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
     }
-    else{
-        x.type = "password";
-    }
-}
 </script>
-
-<script>
-{% if membership_id %}
-  const model = document.getElementById("confirmModel");
-  const modelBody = document.getElementById("modelBody");
-  const closeModel = document.getElementById("closeModel");
-
-  // Use backticks ` for multi-line template literal
-  modelBody.innerHTML = `
-    <div>Account Created Successfully!</div>
-    <div><strong>Your Membership ID:</strong> {{ membership_id }}</div>
-    <div>Welcome! Remember: "better health, better mind, better quality of life"</div>
-  `;
-
-  // Show the modal
-  model.style.display = "block";
-
-  // Close button handler
-  closeModel.onclick = function() { 
-    model.style.display = "none"; 
-  };
-
-  // Optional auto-close & redirect
-  setTimeout(function() {
-    model.style.display = "none";
-    window.location.href = "{{ url_for('account_page') }}";
-  }, 5000);
-{% endif %}
-</script>
-
-
 
 </body>
 </html>

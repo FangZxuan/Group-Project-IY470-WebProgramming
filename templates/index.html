@@ -4,7 +4,7 @@
 <meta charset = "UTF-8">
 <meta name = "viewport" content = "width=device-width, initial-scale=1">
 <title> GYM</title>
-<link rel="stylesheet" href="static/css/index.css"> 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> 
 </head>
 
   <body>
@@ -12,17 +12,83 @@
       <nav class = "navbar" >
         <!--logo section-->
           <div class = "logo">
-            <a href = "#home">Cotswold</a>
+            <a href = "{{ url_for('index') }}">Cotswold</a>
           </div> 
           <!--navigation-->
           <ul class = "menu">
-            <li> <a href = "{{url_for('membership')}}"> Gym Comparison</a></li><!--link to gym comparison page-->
-            <li> <a href = "{{url_for('signup_page')}}"> Sign up</a></li><!--link to gym comparison page-->
-            <li> <a href = "#facility"> Facility</a></li><!--link to the facility section -->
-            <li> <a href = "#equipment"> Equipment</a></li><!--link to equipment section-->
-            <li> <a href = "{{url_for('account_page')}}"> Login</a></li><!--link to Login page-->
+            <li> <a href = "{{url_for('membership')}}"> Gym Comparison</a></li>
+            
+            {% if logged_in %}
+            <li class="user-menu">
+                <a href="#" class="welcome-text">{{ user_fname }}</a>
+                <div class="user-dropdown">
+                    <a href="#" onclick="document.getElementById('aboutModal').style.display='block'">About</a>
+                    <a href="{{ url_for('membership') }}">Compare Gyms</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </li>
+            {% else %}
+            <li> <a href = "{{url_for('signup')}}"> Sign up</a></li>
+            <li> <a href = "{{url_for('account_page')}}"> Login</a></li>
+            {% endif %}
+            
+            <li> <a href = "#facility"> Facility</a></li>
+            <li> <a href = "#equipment"> Equipment</a></li>
           </ul>
       </nav>
+    </div>
+
+    <!-- About Modal - Shows detailed info including plan -->
+    <div id="aboutModal" class="modal" onclick="if(event.target==this)this.style.display='none'">
+        <div class="modal-content about-modal-content">
+            <span class="close" onclick="document.getElementById('aboutModal').style.display='none'">&times;</span>
+            <h2>About Me</h2>
+            
+            <!-- Basic Info Section -->
+            <div class="about-section">
+                <h3>Account Information</h3>
+                <p><strong>ID:</strong> {{ user_id if logged_in else 'N/A' }}</p>
+                <p><strong>Full Name:</strong> {{ user_fname if logged_in else '' }} {{ user_lname if logged_in else '' }}</p>
+                <p><strong>Email:</strong> {{ user_email if logged_in else 'N/A' }}</p>
+            </div>
+
+            <!-- Membership Plan Section - Only shown if user has a plan -->
+            {% if user_membership and logged_in %}
+            <div class="about-section">
+                <h3>Current Plan <span class="plan-badge">Active</span></h3>
+                <div class="plan-details-grid">
+                    <div class="plan-detail-item">
+                        <div class="plan-detail-label">Gym</div>
+                        <div class="plan-detail-value">{{ user_membership.gym_name }}</div>
+                    </div>
+                    <div class="plan-detail-item">
+                        <div class="plan-detail-label">Plan Duration</div>
+                        <div class="plan-detail-value">{{ user_membership.plan }}</div>
+                    </div>
+                    <div class="plan-detail-item">
+                        <div class="plan-detail-label">Category</div>
+                        <div class="plan-detail-value">{{ user_membership.ticket_type }}</div>
+                    </div>
+                    <div class="plan-detail-item">
+                        <div class="plan-detail-label">Price Paid</div>
+                        <div class="plan-detail-value">£{{ user_membership.price }}</div>
+                    </div>
+                    <div class="plan-detail-item" style="grid-column: 1 / -1;">
+                        <div class="plan-detail-label">Start Date → End Date</div>
+                        <div class="plan-detail-value">{{ user_membership.start_date }} → {{ user_membership.end_date }}</div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <!-- Show this only if logged in but no membership -->
+            {% if logged_in %}
+            <div class="about-section">
+                <h3>Membership Status</h3>
+                <p class="no-plan">No active membership plan. Visit Gym Comparison to choose your plan.</p>
+            </div>
+            {% endif %}
+            {% endif %}
+        </div>
     </div>
 
     <div class = "slider" >
@@ -290,4 +356,3 @@
         </footer>
   </body>
 </html>
-
