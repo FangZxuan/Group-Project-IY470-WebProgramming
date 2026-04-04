@@ -69,6 +69,36 @@ input:not(:placeholder-shown) + label {
     
    }
     
+ .model {
+  display: none; /* hidden by default */
+  position: fixed; 
+  z-index: 1000; /* on top of everything */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5); /* semi-transparent background */
+}
+.model-content {
+  background-color: #ffffff;
+  margin: 15% auto; /* center vertically & horizontally */
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  height:200px;
+  text-align: center;
+}
+.model-Body{
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* spacing between each line */
+}
+.close {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
 </style>
 <body>
 
@@ -77,11 +107,6 @@ input:not(:placeholder-shown) + label {
    <div class="signup_container">
     <form action="/submit" method="post" class="signup_form">
         <header class="signn">Sign up</header>
-
-    <div class="membership">
-        <input type="text" id="membership" name="membership" placeholder=" " required>
-        <label for="membership">Membership ID</label>
-    </div>
     <div class="email_input">
         <input type="email" id="email" name="email" placeholder=" " required>
         <label for="email">Email</label>
@@ -111,6 +136,15 @@ input:not(:placeholder-shown) + label {
     <div class="register_button">
         <input type="submit" id="register" value="Sign Up">
     </div>
+    <div id="confirmModel" class="model" style="display:none;">
+      <div class="model-content">
+      <span id="closeModel" class="close">&times;</span>
+      <div id="modelBody" class="model-Body">
+      </div>
+  </div>
+</div>
+
+
     </form>
 
     </div>
@@ -139,8 +173,34 @@ input:not(:placeholder-shown) + label {
 }
 </script>
 
+<script>
+{% if membership_id %}
+  const model = document.getElementById("confirmModel");
+  const modelBody = document.getElementById("modelBody");
+  const closeModel = document.getElementById("closeModel");
 
+  // Use backticks ` for multi-line template literal
+  modelBody.innerHTML = `
+    <div>Account Created Successfully!</div>
+    <div><strong>Your Membership ID:</strong> {{ membership_id }}</div>
+    <div>Welcome! Remember: "better health, better mind, better quality of life"</div>
+  `;
 
+  // Show the modal
+  model.style.display = "block";
+
+  // Close button handler
+  closeModel.onclick = function() { 
+    model.style.display = "none"; 
+  };
+
+  // Optional auto-close & redirect
+  setTimeout(function() {
+    model.style.display = "none";
+    window.location.href = "{{ url_for('account_page') }}";
+  }, 5000);
+{% endif %}
+</script>
 
 
 
