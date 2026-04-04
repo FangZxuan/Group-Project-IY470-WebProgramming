@@ -10,11 +10,17 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-
 <title>Navbar</title>
 
 <style>
+.create_account {
+  text-decoration: none;   /* removes underline */
+  color: #007bff;          /* make it blue like a link */
+  margin-left: 5px;        /* optional spacing */
+}
+.create_account:hover {
+  text-decoration: underline; /* underline on hover */
+}
 input[type="password"],
     select {
     padding:20px 10px;
@@ -113,8 +119,9 @@ button{
        </div>
        
        <button type="submit">Login</button>
-    </div>
-     <a href = "{{url_for('signup_page')}}"><div class="create_account" id="create" name="creation" text-decoration="none" >Don't have an account ? Click here to create one! </a></div>
+<p>Don't have an account? 
+  <a href="{{ url_for('signup_page') }}" class="create_account">Sign up here!</a>
+</p>
    
    
 

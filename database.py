@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, url_for, redirect, render_template_string
 import mysql.connector
+import random
 
 app = Flask(__name__)
 
@@ -47,30 +48,19 @@ def email_exists(email):
         cur.close()
         conn.close()
 # Handle form submission
-def membership_exist(membership):
-    conn = get_connection()
-    try: 
-        cur = conn.cursor()
-        cur.execute(
-            "SELECT 1 FROM Account WHERE MembershipID = %s LIMIT 1",(membership,)
-            )
-        return cur.fetchone() is not None
-    finally:
-        cur.close()
-        conn.close()
 
 @app.route("/submit", methods=["POST"])
 
 def submit():
-    membership = request.form.get("membership","").strip()
-    membership = int(membership)
     email = request.form.get("email","").strip()
     fname = request.form.get("fname","").strip()
     Lname = request.form.get("Lname","").strip()
     pass_word = request.form.get("pass_word","").strip()
+    membership = request.form.get("membership")
 
+    membership_id = random.randint(100000, 999999)
 
-    if not email or not fname or not Lname or not membership or not pass_word:
+    if not email or not fname or not Lname or not pass_word:
         return "Missing required fields", 400
     
     if email_exists(email):
@@ -79,32 +69,19 @@ def submit():
             message="Email already registered!",
             redirect_url= url_for("signup_page")
         )
-    if not membership_exist(membership):
-        return render_template_string(
-            """
-          <script>
-          alert("Membership Doesn't Exist, Please create one before proceeding!");
-         window.location.href = "{{ url_for('membership') }}";
-         </script>
-          """)
-        
     conn = get_connection()
     try:
         cur = conn.cursor()
         cur.execute(
-            "INSERT INTO Account (EMAIL, First_Name, Last_Name, MembershipID, Password) VALUES (%s, %s, %s, %s, %s)",
-            (email, fname, Lname, membership, pass_word),
+            "INSERT INTO Account (EMAIL, First_Name, Last_Name,Password, MembershipID) VALUES (%s, %s, %s, %s, %s)",
+            (email, fname, Lname, pass_word, membership_id),
         )
         conn.commit()
     finally:
         cur.close()
         conn.close()
-    return render_template_string("""
-       <script>
-       alert("Account Created Successfully!");
-       window.location.href = "{{ url_for('account_page') }}";
-       </script>
-       """)
+    return render_template("signup.html", membership_id = membership_id)
+      
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=True)
