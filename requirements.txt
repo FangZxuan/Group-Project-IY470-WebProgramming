@@ -1,6 +1,10 @@
 Flask==3.0.0
+mysql-connector-python==8.3.0
+python-dotenv==1.0.0
 
--- Users/Accounts table
+#SQL Schema
+#Users/Accounts table
+
 CREATE TABLE Account (
     MembershipID VARCHAR(6) PRIMARY KEY,
     EMAIL VARCHAR(255) UNIQUE NOT NULL,
@@ -10,7 +14,8 @@ CREATE TABLE Account (
     Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Membership purchases table
+#Membership purchases table
+
 CREATE TABLE Memberships (
     id INT AUTO_INCREMENT PRIMARY KEY,
     MembershipID VARCHAR(6) NOT NULL,
@@ -25,14 +30,18 @@ CREATE TABLE Memberships (
     FOREIGN KEY (MembershipID) REFERENCES Account(MembershipID)
 );
 
-USE papi;
+## Check all accounts
+
 SELECT MembershipID, EMAIL, First_Name, Last_Name, Password_Hash, created_at 
 FROM Account;
+
+## Check memberships with user details
 
 SELECT m.*, a.First_Name, a.Last_Name, a.EMAIL
 FROM Memberships m
 JOIN Account a ON m.MembershipID = a.MembershipID;
 
+## Reset data (for testing only!)
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE Memberships;
 TRUNCATE TABLE Account;
