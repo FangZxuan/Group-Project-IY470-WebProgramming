@@ -7,11 +7,30 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1,0">
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
 <title>Navbar</title>
+
+<style>
+input[type="password"],
+    select {
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.membership{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+</style>
 
 </head>
 
@@ -20,7 +39,7 @@
     <div class="container" id="main"> 
         <a href="javascript:void(0)" style="color:white" onmouseover="toggleNav(); event.stopPropagation();">&#9776;</a> <!--hover bar-->
      <div class="account-wrapper">
-        <a href="Account.html" target="_blank"><img src="Photos/account.jpg" class="account"></a>
+        <a href="Account.html" target="_blank"><img src="{{ url_for('static', filename='Photos/account.jpg')}}" class="account"></a>
             <span class="Position-Account"> Log In </span>
     </div>
 
@@ -42,7 +61,7 @@
     
     <a href="signup.html"><label for="create_account" class="create_account" id="create" name="creation"  class="create_account" text-decoration="none" >Don't have an account ? Click here to create one! </a></label>
    
-    <img class="gymbro" src="Photos/loginpage.jpg">
+    <img class="gymbro" src="{{url_for('static',filename='Photos/loginpage.jpg')}}">
     
  </form>
 
@@ -53,7 +72,7 @@
         <a href="Account.html" onmouseover="bigfont3(this)"  onmouseleave="normalfont(this)">Account</a>
     </div>
 <script
-    src="index.js">
+    src="static/js/index.js">
     document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("login").classList.add("open");
 });
