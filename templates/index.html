@@ -4,7 +4,48 @@
 <meta charset = "UTF-8">
 <meta name = "viewport" content = "width=device-width, initial-scale=1">
 <title> GYM</title>
-<link rel="stylesheet" href="static/css/index.css"> 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> 
+<style>
+/* Added only for auth dropdown - minimal */
+.user-menu { position: relative; display: inline-block; }
+.user-dropdown { 
+    display: none; 
+    position: absolute; 
+    background-color: white; 
+    min-width: 160px; 
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2); 
+    z-index: 1000; 
+    border-radius: 5px; 
+    right: 0; 
+    top: 100%;
+}
+.user-dropdown a { 
+    color: black; 
+    padding: 12px 16px; 
+    text-decoration: none; 
+    display: block; 
+}
+.user-dropdown a:hover { background-color: #f1f1f1; }
+.user-menu:hover .user-dropdown { display: block; }
+.welcome-text { color: #4184f0; font-weight: bold; font-variant: small-caps; }
+
+/* Modal styles */
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+.modal-content { background-color: white; margin: 10% auto; padding: 30px; border-radius: 10px; width: 80%; max-width: 400px; position: relative; }
+.close { position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; }
+
+/* About Modal Specific Styles - Cleaner look */
+.about-modal-content { max-width: 500px; }
+.about-section { margin-bottom: 20px; }
+.about-section h3 { color: #4184f0; margin-bottom: 10px; border-bottom: 2px solid #f0f0f0; padding-bottom: 5px; }
+.about-section p { margin: 8px 0; color: #333; }
+.plan-badge { display: inline-block; background: #4184f0; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em; margin-left: 10px; }
+.no-plan { color: #888; font-style: italic; }
+.plan-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.plan-detail-item { background: #f8f9fa; padding: 10px; border-radius: 5px; }
+.plan-detail-label { font-size: 0.85em; color: #666; }
+.plan-detail-value { font-weight: bold; color: #333; }
+</style>
 </head>
 
   <body>
@@ -12,17 +53,83 @@
       <nav class = "navbar" >
         <!--logo section-->
           <div class = "logo">
-            <a href = "#home">Cotswold</a>
+            <a href = "{{ url_for('index') }}">Cotswold</a>
           </div> 
           <!--navigation-->
           <ul class = "menu">
-            <li> <a href = "{{url_for('membership')}}"> Gym Comparison</a></li><!--link to gym comparison page-->
-            <li> <a href = "{{url_for('signup')}}"> Sign up</a></li><!--link to gym comparison page-->
-            <li> <a href = "#facility"> Facility</a></li><!--link to the facility section -->
-            <li> <a href = "#equipment"> Equipment</a></li><!--link to equipment section-->
-            <li> <a href = "{{url_for('signup')}}"> Login</a></li><!--link to Login page-->
+            <li> <a href = "{{url_for('membership')}}"> Gym Comparison</a></li>
+            
+            {% if logged_in %}
+            <li class="user-menu">
+                <a href="#" class="welcome-text">{{ user_fname }}</a>
+                <div class="user-dropdown">
+                    <a href="#" onclick="document.getElementById('aboutModal').style.display='block'">About</a>
+                    <a href="{{ url_for('membership') }}">Compare Gyms</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </li>
+            {% else %}
+            <li> <a href = "{{url_for('signup')}}"> Sign up</a></li>
+            <li> <a href = "{{url_for('account_page')}}"> Login</a></li>
+            {% endif %}
+            
+            <li> <a href = "#facility"> Facility</a></li>
+            <li> <a href = "#equipment"> Equipment</a></li>
           </ul>
       </nav>
+    </div>
+
+    <!-- About Modal - Shows detailed info including plan -->
+    <div id="aboutModal" class="modal" onclick="if(event.target==this)this.style.display='none'">
+        <div class="modal-content about-modal-content">
+            <span class="close" onclick="document.getElementById('aboutModal').style.display='none'">&times;</span>
+            <h2>About Me</h2>
+            
+            <!-- Basic Info Section -->
+            <div class="about-section">
+                <h3>Account Information</h3>
+                <p><strong>ID:</strong> {{ user_id if logged_in else 'N/A' }}</p>
+                <p><strong>Full Name:</strong> {{ user_fname if logged_in else '' }} {{ user_lname if logged_in else '' }}</p>
+                <p><strong>Email:</strong> {{ user_email if logged_in else 'N/A' }}</p>
+            </div>
+
+            <!-- Membership Plan Section - Only shown if user has a plan -->
+            {% if user_membership and logged_in %}
+            <div class="about-section">
+                <h3>Current Plan <span class="plan-badge">Active</span></h3>
+                <div class="plan-details-grid">
+                    <div class="plan-detail-item">
+                        <div class="plan-detail-label">Gym</div>
+                        <div class="plan-detail-value">{{ user_membership.gym_name }}</div>
+                    </div>
+                    <div class="plan-detail-item">
+                        <div class="plan-detail-label">Plan Duration</div>
+                        <div class="plan-detail-value">{{ user_membership.plan }}</div>
+                    </div>
+                    <div class="plan-detail-item">
+                        <div class="plan-detail-label">Category</div>
+                        <div class="plan-detail-value">{{ user_membership.ticket_type }}</div>
+                    </div>
+                    <div class="plan-detail-item">
+                        <div class="plan-detail-label">Price Paid</div>
+                        <div class="plan-detail-value">£{{ user_membership.price }}</div>
+                    </div>
+                    <div class="plan-detail-item" style="grid-column: 1 / -1;">
+                        <div class="plan-detail-label">Start Date → End Date</div>
+                        <div class="plan-detail-value">{{ user_membership.start_date }} → {{ user_membership.end_date }}</div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <!-- Show this only if logged in but no membership -->
+            {% if logged_in %}
+            <div class="about-section">
+                <h3>Membership Status</h3>
+                <p class="no-plan">No active membership plan. Visit Gym Comparison to choose your plan.</p>
+            </div>
+            {% endif %}
+            {% endif %}
+        </div>
     </div>
 
     <div class = "slider" >
@@ -290,4 +397,3 @@
         </footer>
   </body>
 </html>
-
