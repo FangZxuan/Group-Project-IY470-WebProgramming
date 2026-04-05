@@ -1,33 +1,36 @@
+/*Remove default margin and padding to prevent white gaps*/
 html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     background: #ffffff;
-    background-size: cover;
+    background-size: cover; /* Ensure background covers entire page */
     background-repeat: no-repeat;
     background-position: center;
-    min-height: 100vh;
-    overflow-x: hidden;
+    min-height: 100vh; /* Full viewport height */
+    overflow-x: hidden;   /* Prevent horizontal scrolling */
 }
 
+/* Signup form container with blur, shadow, and responsive size */
 .signup_container {
-    display: grid;
+    display: grid; /*for flexibility of container postioning*/
     min-height: 500px;
     min-width: 320px;
     max-width: 450px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(13px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);/* Light border */
+    backdrop-filter: blur(13px);  /* Background blur effect */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);  /* Shadow for depth */
     width: 90%;
     margin: 80px auto;
     font-size: 30px;
-    background: rgba(255, 255,  255, 0.15);
+    background: rgba(255, 255,  255, 0.15); /* Semi-transparent background */
     border-radius: 30px;
     position: relative;
     overflow: hidden;
     padding: 40px;
 }
 
+/* Signup page heading */
 .signn {
     font-size: 32px;
     margin-bottom: 30px;
@@ -39,12 +42,15 @@ html, body {
     letter-spacing: 1px;
 }
 
+
+/* Container for each input field */
 .input_field {
     position: relative;
     width: 100%;
     margin-bottom: 20px;
 }
 
+/* Floating label for input fields */
 .input_field label {
     position: absolute;
     left: 12px;
@@ -57,21 +63,23 @@ html, body {
     font-size: 16px;
 }
 
+/* Input field styles */
 .input_field input {
     width: 100%;
     padding: 15px 12px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);  /* Soft shadow */
     background: rgba(255, 255, 255, 0.25);
     border: 2px solid rgba(255, 255, 255, 0.3);
     color: #000;
     font-size: 16px;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Include padding & border in width */
     transition: all 0.3s ease;
 }
 
+/* Move label above input when focused or filled */
 .input_field input:focus + label,
-.input_field input:not(:placeholder-shown) + label {
+.input_field input:not(:placeholder-shown) + label { 
     top: -10px;
     font-size: 13px;
     color: #000;
@@ -81,12 +89,14 @@ html, body {
     font-weight: bold;
 }
 
+/* Input focus styles */
 .input_field input:focus {
     outline: none;
     border-color: rgba(96, 96, 248, 0.8);
     background: rgba(255, 255, 255, 0.35);
 }
 
+/* Hide placeholder text */
 .input_field input::placeholder {
     color: transparent;
 }
@@ -98,6 +108,7 @@ html, body {
     margin-bottom: 25px;
 }
 
+/* Password input styles */
 .password-container input {
     width: 100%;
     padding: 15px 45px 15px 12px;  /* Extra right padding for eye icon */
@@ -111,6 +122,7 @@ html, body {
     transition: all 0.3s ease;
 }
 
+/* Password label */
 .password-container label {
     position: absolute;
     left: 12px;
@@ -123,6 +135,8 @@ html, body {
     font-size: 16px;
 }
 
+
+/* Move password label above input when focused or filled */
 .password-container input:focus + label,
 .password-container input:not(:placeholder-shown) + label {
     top: -10px;
@@ -134,12 +148,14 @@ html, body {
     font-weight: bold;
 }
 
+/* Password input focus style */
 .password-container input:focus {
     outline: none;
     border-color: rgba(96, 96, 248, 0.8);
     background: rgba(255, 255, 255, 0.35);
 }
 
+/* Eye icon for showing/hiding password */
 #eye_Icon {
     position: absolute;
     right: 15px;
@@ -152,10 +168,12 @@ html, body {
     transition: opacity 0.3s;
 }
 
+/*transition for eye icon to be invisible*/
 #eye_Icon:hover {
     opacity: 1;
 }
 
+/* Register button styles */
 .register_button input {
     border: none;
     border-radius: 25px;
@@ -180,6 +198,7 @@ html, body {
     box-shadow: 0 6px 20px rgba(96, 96, 248, 0.6);
 }
 
+/* Login link below form */
 .login-link {
     text-align: center;
     margin-top: 20px;
@@ -188,6 +207,7 @@ html, body {
     font-weight: 500;
 }
 
+/*Login link anchor link styling*/
 .login-link a {
     color: rgb(96, 96, 248);
     text-decoration: none;
@@ -195,6 +215,7 @@ html, body {
     transition: color 0.3s;
 }
 
+/*Hoverable Login link styling*/
 .login-link a:hover {
     color: rgb(0, 150, 255);
     text-decoration: underline;
@@ -202,9 +223,9 @@ html, body {
 
 /* Modal Styles */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
+    display: none;  /* Hidden by default */
+    position: fixed; /* Fixed to screen */
+    z-index: 1000; /* On top of everything*/
     left: 0;
     top: 0;
     width: 100%;
@@ -213,6 +234,7 @@ html, body {
     backdrop-filter: blur(5px);
 }
 
+/* Modal content box */
 .modal-content {
     background-color: #ffffff;
     margin: 10% auto;
@@ -225,11 +247,14 @@ html, body {
     animation: modalSlide 0.3s ease;
 }
 
+
+/* Modal slide animation */
 @keyframes modalSlide {
     from { transform: translateY(-50px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
 
+/* Modal body layout */
 .modal-Body {
     display: flex;
     flex-direction: column;
@@ -237,12 +262,14 @@ html, body {
     margin-bottom: 20px;
 }
 
+/* Success icon in modal */
 .success-icon {
     font-size: 50px;
     color: #4CAF50;
     margin-bottom: 10px;
 }
 
+/* Membership ID display */
 .membership-id {
     font-size: 18px;
     color: #333;
@@ -252,6 +279,8 @@ html, body {
     border: 2px dashed rgb(96, 96, 248);
 }
 
+
+/* Welcome message in modal */
 .welcome-msg {
     font-size: 14px;
     color: #666;
@@ -259,6 +288,7 @@ html, body {
     margin-top: 10px;
 }
 
+/* Modal close button */
 .close-btn {
     background: linear-gradient(to right, rgb(96, 96, 248), rgb(0, 200, 255));
     color: white;
@@ -275,19 +305,20 @@ html, body {
     transform: scale(1.05);
 }
 
-@media (max-width: 480px) {
-    .signup_container {
-        width: 95%;
-        margin: 40px auto;
-        padding: 30px 20px;
-        min-width: auto;
-    }
-    
-    .signn {
-        font-size: 28px;
-    }
-    
-    .register_button input {
-        width: 100%;
-    }
+/* Signup form container */
+.signup_container {
+    width: 95%;
+    margin: 40px auto;
+    padding: 30px 20px;
+    min-width: auto;
+}
+
+/* Signup page heading */
+.signn {
+    font-size: 28px;
+}
+
+/* Register button */
+.register_button input {
+    width: 100%;
 }
