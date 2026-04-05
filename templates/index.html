@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang = "en">
 <head>
+<!-- Basic meta tags for character encoding and responsive design -->
 <meta charset = "UTF-8">
 <meta name = "viewport" content = "width=device-width, initial-scale=1">
 <title> GYM</title>
+  <!-- Link to external CSS file for styling -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> 
-</head>
 
+</head>
+<!-- ==========================================
+         NAVIGATION SECTION
+         ========================================== -->
   <body>
     <div id="home">
       <nav class = "navbar" >
@@ -16,25 +21,31 @@
           </div> 
           <!--navigation-->
           <ul class = "menu">
- 
+             <!-- Main navigation links -->
             <li> <a href = "{{url_for('membership')}}"> Gym Comparison</a></li>
+            <li> <a href = "#facility"> Facility</a></li>
+            <li> <a href = "#equipment"> Equipment</a></li>
             
             {% if logged_in %}
+            <!-- ==========================================
+                     LOGGED-IN USER MENU
+                     Shows username with dropdown for account actions
+                     ========================================== -->
             <li class="user-menu">
                 <a href="#" class="welcome-text">{{ user_fname }}</a>
                 <div class="user-dropdown">
                     <a href="#" onclick="document.getElementById('aboutModal').style.display='block'">About</a>
+                   
                     <a href="{{ url_for('membership') }}">Compare Gyms</a>
                     <a href="{{ url_for('logout') }}">Logout</a>
+                    
                 </div>
             </li>
+
             {% else %}
             <li> <a href = "{{url_for('signup')}}"> Sign up</a></li>
             <li> <a href = "{{url_for('account_page')}}"> Login</a></li>
             {% endif %}
-            
-            <li> <a href = "#facility"> Facility</a></li>
-            <li> <a href = "#equipment"> Equipment</a></li>
 
           </ul>
       </nav>
@@ -110,13 +121,16 @@
 
     
 
-  <!--facility section-->
+   <!-- ==========================================
+         FACILITIES SECTION
+         4-card grid showing gym amenities
+         ========================================== -->
     <section class="facility" id="facility">
       <h2>Everything You Need, Right Here</h2>
         <p class="subtitle">Train, relax, and refresh in one place</p>
           
         <div class="facility-cards">
-          <!--massage therapy-->
+          <!-- Card 1: Massage Therapy -->
           <div class="card">
             <img src="https://i.pinimg.com/1200x/bb/0d/ff/bb0dff7adbd80c5ae3322f070bc562ed.jpg" alt="Massage_Therapy">
               <div class="card-content">
@@ -124,7 +138,7 @@
                 <p>Professional massage to support your recovery</p>
               </div>
           </div>
-          <!--classes-->
+          <!-- Card 2: Fitness Classes -->
           <div class="card">
             <img src="https://i.pinimg.com/736x/df/f0/7f/dff07f2b60074160e6de185404424c47.jpg" alt="Clases">
               <div class="card-content">
@@ -132,7 +146,7 @@
                 <p>Instructor-led group classes that build strength, confidence, and consistency.<p>
               </div>
           </div>
-          <!--swimming pool-->
+          <!-- Card 3: Swimming Pool -->
           <div class="card">
             <img src="https://i.pinimg.com/736x/73/6a/93/736a93ff20fc731e5b66e0d195a4c551.jpg" alt="Swimming_Pool">
               <div class="card-content">
@@ -140,7 +154,7 @@
                 <p>Modern pool for your comfort</p>
               </div>
           </div>
-          <!--physiotherapy-->
+          <!-- Card 4: Physiotherapy -->
           <div class="card">
             <img src="https://i.pinimg.com/736x/98/b0/d5/98b0d53e454036cdb48549d910252ca1.jpg" alt="Physiotherapy">
               <div class="card-content">
@@ -152,7 +166,10 @@
         </div>
     </section>
 
-<!-- equipment -->
+<!-- ==========================================
+         EQUIPMENT SECTION
+         Horizontal scrolling cards by category
+         ========================================== -->
     <section class="equipment" id="equipment">
             <h2>Machines to Power Your Potential</h2>
             <p class="subtitle">State-of-the-art machines for every workout</p>
@@ -274,22 +291,25 @@
             </div>
           </section>
 
-        <hr>
-        <!-- footer section -->
+        <hr><!-- Visual separator -->
+         <!-- ==========================================
+         FOOTER SECTION
+         Site info, hours, links, and social media
+         ========================================== -->
         <footer class="footer">
           <div class="footer-container">
-
+          <!-- Brand column -->
             <div class="footer-section">
               <h2>Papi gym</h2>
               <p>Train hard</p>
               <p>Find the Gym that Fits You best</p>
             </div>
-
+          <!-- Hours column -->
             <div class="footer-section">
               <h3>Opening hour</h3>
               <p>Open 24/7 both of gyms</p>
             </div>
-
+          <!-- Quick links column -->
             <div class="footer-section">
               <h3>Quick link</h3>
               <a href="#home">Home</a>
@@ -297,7 +317,7 @@
               <a href="#facility">Facility</a>
               <a href="#equipment">Equipment</a>
             </div>
-
+           <!-- Contact info column -->
             <div class="footer-section">
               <h3>Contact us</h3>
               <p>Email: info@papipapipuuugym.com</p>
@@ -305,8 +325,13 @@
               <p>Address: UWE Frenchay Campus, Cotswold</p>
               <!-- From Uiverse.io by david-mohseni --> 
               </div>
+              <!-- ==========================================
+                 SOCIAL MEDIA ICONS
+                 Interactive icons with hover tooltips
+                 ========================================== -->
 
               <ul class="wrapper">
+                <!-- Facebook -->
                 <li class="icon facebook">
                   <span class="tooltip">Facebook</span>
                   <svg
@@ -320,6 +345,7 @@
                     ></path>
                   </svg>
                 </li>
+                <!-- Twitter/X -->
                 <li class="icon twitter">
                   <span class="tooltip">Twitter</span>
                   <svg
@@ -334,6 +360,7 @@
                     ></path>
                   </svg>
                 </li>
+                <!-- Instagram -->
                 <li class="icon instagram">
                   <span class="tooltip">Instagram</span>
                   <svg
@@ -349,12 +376,13 @@
                   </svg>
                 </li>
               </ul>
-
+             <!-- Copyright notice -->
             <div class="footer-bottom">
               <p>© 2026 Papi gym | All Rights Reserved. | We Do Gym Together.</p>
             </div>
 
           </div>   
         </footer>
+     
   </body>
 </html>
