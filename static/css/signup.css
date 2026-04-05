@@ -1,141 +1,227 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-image: url("/static/Photos/gym.jpg");
-    background-size: 106% 100%;
+html, body {
+    margin: 0;     /*remove default margins*/
+    padding: 0;     /*remove default padding*/
+    font-family: Arial, sans-serif; 
+    background-image: url("/static/Photos/gym.jpg"); 
+    background-size: 106% 100%;   /*enforce width and height to desire outcome to match the container*/
     background-repeat: no-repeat;
-    background-position: center;
-    min-height: 100vh;
-    overflow-x: hidden;
+    background-position: center;  
+    min-height: 100vh;    /*ensure the image fills up the entire viewport height*/
+    overflow-x: hidden;   /*Prevent horizon scroll*/
+    overflow-y: hidden;   /*Prevent vertical scroll*/
 }
 
+/* ==================================
+   Signup Form Container Styling
+   ==================================*/
+
+/*main container for signup page*/
 .signup_container {
-    display: grid;
-    min-height: 500px;
-    min-width: 500px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(13px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 10%;
-    margin: 130px auto;
+    display: grid; /*grid layout for flexible positioning*/
+    min-height: 500px;   /* Minimum height for form*/
+    min-width: 500px;    /*Minimum width for form*/ 
+    border: 2px solid rgba(255, 255, 255, 0.2); /*border color and depth*/
+    backdrop-filter: blur(13px); /*Adds blurry effect for background*/
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Soft shadow for corners */
+    width: 10%; 
+    margin: 130px auto;   /* Center form horizontally, push it down vertically */
     font-size: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 30px;
-    position: relative;
-    overflow: hidden;
-    padding: 40px;
+    background: rgba(255, 255, 255, 0.1); /*semi-transparent background */
+    border-radius: 30px; /* Rounded corners for form */
+    position: relative;  /*reserve spacing for elements, ensure no elements are being pushed for it*/
+    overflow: hidden; /*hide overflowing contents*/
+    padding: 40px; /*spacing inside the form*/
 }
 
+/* Heading for the signup form */
 .signn {
     font-size: 30px;
-    margin-bottom: 25px;
+    margin-bottom: 25px; /* Space below the heading */
     text-align: center;
-    margin-top: 10px;
+    margin-top: 10px; /* Small space above heading */
     color: rgb(0, 0, 0);
-    font-weight: bold;
+    font-weight: bold; /* Make heading bold*/
 }
-
+/* Wrapper for individual input fields */
 .email_input, .Fname_input, .Lname_input, .password {
-    position: relative;
-    width: 95%;
-    margin-bottom: 15px;
+    position: relative; /* Allows absolutely positioned labels inside inputs */
+    width: 95%;    
+    margin-bottom: 15px; /* Space below each input for separation */
 }
-
+/* ===================================================
+   Label field transition and styling
+   Implements a floating label effect for input field
+   ===================================================*/
 label {
-    position: absolute;
-    left: 12px;
-    top: 15px;
-    color: #000000;
-    pointer-events: none;
-    transition: 0.3s;
-    background-color: transparent;
+    position: absolute; /* Float the label above the input and position it precisely */
+    left: 12px;    /* Horizontal position inside the input wrapper */
+    top: 15px;      /* Vertical position inside the input wrapper */
+    color: #000000;    /* Label color */
+    pointer-events: none;   /* Ignore mouse events, click passes through to input */
+    transition: 0.3s;     /* Smooth animation when label moves */
+    background-color: transparent; /* Let the input background show through behind the label */
     padding: 0 4px;
     font-size: 16px;
 }
 
 input:focus + label,
 input:not(:placeholder-shown) + label {
-    top: -10px;
-    font-size: 14px;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 0 8px;
-    border-radius: 4px;
+    top: -10px;   /* Move label above input field */
+    font-size: 14px;     /* Shrink font for floating effect */
+    color: rgb(0, 0, 0);    /* Label color for readability */
+    background-color: rgb(255, 251, 251);
+    padding: 0 8px;   /* Horizontal padding for floating label */
+    border-radius: 4px; /* Rounded corners for label background */
 }
 
+/* General styling for text, email, and password input fields */
 input[type="text"], 
 input[type="email"], 
 input[type="password"] {
-    width: 95%;
-    padding: 15px 12px;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    color: white;
+    width: 95%;  /* take most of the container width */
+    padding: 15px 12px; /* Inner spacing for text */
+    border-radius: 10px;    /* Rounded input corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);  /* Soft shadow for corners */
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    border: 2px solid rgba(255, 255, 255, 0.2); /*border color and depth*/
+    color: rgb(0, 0, 0);   /*user input colors*/
     font-size: 16px;
-    box-sizing: border-box;
-}
+    box-sizing: border-box; /*prevent overflow*/
 
+}
+/* Styling when inputting*/
 input:focus {
-    outline: none;
-    border-color: rgba(255, 255, 255, 0.5);
-    background: rgba(255, 255, 255, 0.2);
+    outline: none;  /*remove outlining outside the input field*/
+    border-color: rgba(255, 255, 255, 0.5); /* Highlighting the border for focus state */
+    background: rgba(255, 255, 255, 0.2); /*lighter background for focus state*/
 }
 
-input::placeholder {
-    color: transparent;
+/* Hide the placeholder text since the floating label shows it */
+input::placeholder {       
+    color: transparent;   /* Make placeholder invisible */
 }
-
-.show-pass {
-    margin-bottom: 20px;
-    font-size: 16px;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.show-pass input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-}
+/* ==================================
+   Register Button and Login Link Styling
+   ==================================*/
 
 .register_button input {
-    border: none;
-    border-radius: 20px;
+    border: none; /* Remove default input border */
+    border-radius: 20px; /* Rounded corners */
     font-size: 20px;
-    height: 50px;
+    height: 50px; 
     width: 60%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    background: linear-gradient(to right, rgb(96, 96, 248), aqua);
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.3s;
+    display: block; /*ensure new block elements start on new line*/
+    margin-left: auto; /* Center horizontally */
+    margin-right: auto; /* Center horizontally */
+    background: linear-gradient(to right, rgb(96, 96, 248), aqua); /* Gradient background*/
+    color: white; /*button text color*/
+    font-weight: bold; /*bold text*/
+    cursor: pointer; /*pointer cursor to show availability*/
+    transition: transform 0.3s; /*smooth animation for hovering*/
 }
 
 .register_button input:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /*Amplifying the button on hover over*/
 }
 
+/* Styling for login link text below the form */
 .login-link {
     text-align: center;
-    margin-top: 15px;
+    margin-top: 15px;  /* Space above link */
     font-size: 16px;
-    color: white;
+    color: white; /*Text color*/
 }
+
+/* Styling for the "Login here" with clickable link*/
 
 .login-link a {
     color: rgb(0, 0, 0);
-    text-decoration: none;
-    font-weight: bold;
+    text-decoration: none; /*remove default underlining*/
+    font-weight: bold; /*bold text*/
 }
 
-.login-link a:hover {
-    text-decoration: underline;
+.login-link a:hover {            
+    text-decoration: underline; /*show underline when hover over Login here*/
+}
+
+
+
+/* Eyes Icon position initialise with changes of size and styling in password*/
+.password-container {
+  position: relative;     
+  width: 100%;           
+  margin-bottom: 15px;   /* spacing between inputs */
+}
+
+.password-container input {
+    width: 90%;              
+    padding: 15px 40px 15px 12px; /* extra right padding for the eye icon */
+    border-radius: 10px;    /* Rounded input corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);   /* Soft shadow for corners */
+    background: rgba(255, 255, 255, 0.1);   /* Semi-transparent background */
+    border: 2px solid rgba(255, 255, 255, 0.2);   /*border color and depth*/
+    font-size: 16px;
+    box-sizing: border-box; /*prevent overflow*/
+}
+
+.password-container label {
+  position: absolute; /* Position it relative to the container */
+  left: 12px; /* Distance from the left edge */
+  top: 50%;   /* Vertically center relative to input */
+  transform: translateY(-50%); /* Adjust vertical center */
+  color: #161616; /* Default label color */
+  pointer-events: none; /* Label won’t block clicks on input */
+  transition: 0.2s ease all; /* Smooth animation for position, size and color*/
+}
+
+/* Move label up when input is focused or has value */
+.password-container input:focus + label,
+.password-container input:not(:placeholder-shown) + label {
+  top: -8px; /* Move label above the input */
+  left: 8px;    /* Adjust horizontal position */
+  font-size: 12px;
+  color: #555; /* Change label color */
+  background: white; /*  floating label background color*/
+  padding: 0 4px;  /* Small padding for background */
+}
+
+/* Style for the eye icon (toggle password visibility) */
+#eye_Icon { 
+    position: absolute; /* Position relative to container */
+    right: 55px;  
+    top: 50%;  /* Vertically center relative to input */
+    transform: translateY(-50%); /*vertical centering*/
+    cursor: pointer; 
+    user-select: none; /* Prevent text selection on click */
+}
+
+/* Modal container overlay*/
+.modal {
+  display: none; /* hidden by default */
+  position: fixed; 
+  z-index: 1000; /* container on top of everything */
+  left: 0;  /* left edge aligned with left of viewport */
+  top: 0; /* top edge aligned with top of viewport */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5); /* semi-transparent background */
+}
+
+/* Modal box (content area) */
+.modal-content {
+  background-color: #ffffff;
+  margin: 15% auto; /* center vertically & horizontally */
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  height:200px;
+  text-align: center;
+  font-size:16px;
+}
+
+/* Body of the modal, for structured content */
+.modal-Body{
+  display: flex;
+  flex-direction: column; 
+  gap: 20px; /* spacing between each line */
 }

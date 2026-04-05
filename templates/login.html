@@ -3,28 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Link to login page styling -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 <title>Login</title>
 </head>
 <body>
+    <!-- Full-screen background container -->
     <div class="login_background">
+        <!-- Login form sends POST request to Flask account_page route -->
         <form method="post" action="{{ url_for('account_page') }}" id="login" class="login_form">
             <div class="centerlogin">LOGIN</div>
             
             <div class="pair">
+
+                <!-- Input for email OR membership ID -->
                 <div class="input-container">
                     <input type="text" id="membership" name="membership" placeholder=" " required>
                     <label for="membership">Email or Membership ID</label>
                 </div>
                 
+                 <!-- Password input (restricted to 8–10 characters) -->
                 <div class="input-container">
                     <input type="password" id="password" name="pass_word" placeholder=" " pattern=".{8,10}" required>
                     <label for="password">Password</label>
                 </div>
-                
+
+                <!-- Submit login form -->
                 <button type="submit">Login</button>
             </div>
-            
+
+              <!-- Link to signup page -->
             <div class="create_account">
                 Don't have an account? <a href="{{ url_for('signup') }}">Sign up here!</a>
             </div>
@@ -32,6 +40,7 @@
     </div>
 
 <script>
+   // Add 'open' class after page loads to expand the login form (triggers CSS animation)
     document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("login").classList.add("open");
     });

@@ -3,12 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Link to external CSS for styling the signup page -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
 <title>Sign Up</title>
 </head>
 <body>
 
 <div class="signup_container">
+     <!-- Signup form sends POST request to Flask route -->
     <form action="{{ url_for('signup') }}" method="post" class="signup_form">
         <header class="signn">Sign Up</header>
 
@@ -26,35 +29,74 @@
             <input type="text" id="Lname" name="Lname" placeholder=" " required>
             <label for="Lname">Last Name</label>
         </div>
-        
-        <div class="password">
+
+        <!-- Password input with toggle visibility -->
+        <div class="password-container">
             <input type="password" id="pass_word" name="pass_word" placeholder=" " minlength="8" required>
             <label for="pass_word">Password (min 8 characters)</label>
+            <!-- Eye icon with function toggles password visibility -->
+            <span id="eye_Icon" onclick="show_password()">👁️</span>
         </div>
         
-        <div class="show-pass">
-            <input type="checkbox" onclick="show_password()"> Show password
-        </div>
+       
         
         <div class="register_button">
             <input type="submit" id="register" value="Create Account">
         </div>
         
+         <!-- Link to login page -->
         <div class="login-link">
             Already have an account? <a href="{{ url_for('account_page') }}">Login here</a>
+        </div>
+
+        <!-- Modal shown after successful signup -->
+        <div id="confirmModal" class="modal" style="display:none;">
+            <div class="modal-content">
+            <div id="modalBody" class="modal-Body">
+            
         </div>
     </form>
 </div>
 
 <script>
-    function show_password(){
+    function show_password(){     // Toggle password visibility (show/hide password)
         var x = document.getElementById("pass_word");
+        var icon = document.getElementById("eye_Icon");
         if (x.type === "password"){
             x.type = "text";
+            icon.textContent = "⌣";
+
         } else {
             x.type = "password";
+            icon.textContent = "👁️";
+           
         }
     }
+</script>
+<script>
+    /* Only runs if Flask passes membership_id after successful signup */
+{% if membership_id %}
+   const modal = document.getElementById("confirmModal");
+   const modalBody = document.getElementById("modalBody");
+   const closeModal = document.getElementById("closeModal");
+
+// Insert dynamic success message into modal
+   modalBody.innerHTML = `
+      <div>Account Created Successfully!</div>
+      <div><strong>Your Membership ID:</strong> {{ membership_id }}</div>
+      <div>Welcome! Remember: "better health, better mind, better quality of life"</div>
+      `;
+
+  // Show the modal default none
+    modal.style.display = "block";
+
+  // Auto-close modal and redirect after 5 seconds
+  setTimeout(function() {
+    modal.style.display = "none";
+    window.location.href = "{{ url_for('account_page') }}";
+  }, 5000);
+
+{% endif %}
 </script>
 
 </body>

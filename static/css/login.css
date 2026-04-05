@@ -2,13 +2,23 @@
    LOGIN PAGE STYLES
    ========================= */
 
+
+/* Ensure the page and body take up the full viewport and remove default margins
+   to prevent unexpected white gaps around the background */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
 /* Background with gym image */
 .login_background {
     background-image: url("../Photos/backgroundgym.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     overflow: hidden;
-    min-height: 100vh;
+    position: fixed;
+    height: 100vh; /* forces full viewport height */
+    width: 100vw;  /* ensures it spans full width */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,7 +91,7 @@ input[type="password"] {
     transition: 0.3s;
     background-color: transparent;
 }
-
+/* Move label up and style it when input is focused or has text */
 input:focus + label,
 input:not(:placeholder-shown) + label {
     top: -10px;
@@ -109,13 +119,13 @@ button[type="submit"] {
     font-weight: bold;
     transition: all 0.3s;
 }
-
+/*Login button transition when hover, moves up vertically)*/
 button[type="submit"]:hover {
     background-color: #357ae8;
     transform: translateY(-2px);
 }
 
-/* Create account section */
+/* Create account section at bottom*/
 .create_account {
     text-align: center;
     font-size: 14px;
@@ -123,13 +133,15 @@ button[type="submit"]:hover {
     margin-top: 20px;
 }
 
+/* Style for the link inside the create account section */
 .create_account a {
     color: #007bff;
-    text-decoration: none;
+    text-decoration: none; 
     font-weight: bold;
     margin-left: 5px;
 }
 
+/* Hover effect for the link */
 .create_account a:hover {
     text-decoration: underline;
 }
@@ -142,15 +154,8 @@ button[type="submit"]:hover {
     padding: 0 10px;
 }
 
+/* Expanded state triggered by JS (adds 'open' class to reveal form) */
 #login.open {
     max-height: 700px;
     padding: 40px;
-}
-
-/* Image inside login form (if used) */
-form img {
-    max-width: 333px;
-    position: absolute;
-    top: 1px;
-    right: 1px;
 }
