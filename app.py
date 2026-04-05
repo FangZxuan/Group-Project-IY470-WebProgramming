@@ -70,7 +70,10 @@ def membership():
         return redirect(url_for('signup'))
     return render_template('membership.html')
 
+
 @app.route('/signup', methods=['GET', 'POST'])
+
+
 def signup():
     if request.method == 'POST':
         email = request.form.get("email", "").strip()
